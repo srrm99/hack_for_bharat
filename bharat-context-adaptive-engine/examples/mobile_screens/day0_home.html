@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT - Day-0 Home (Small Vendor)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(180deg, #343541 0%, #1a1b26 100%);
+            color: #ececf1;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: #1a1b26;
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            font-size: 13px;
+            color: #8e8ea0;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .hero-section {
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            margin: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .hero-prompt {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        
+        .action-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .action-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .example-prompts {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #8e8ea0;
+        }
+        
+        .prompt-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .prompt-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+        
+        .prompt-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .feature-highlights {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .chat-input-area {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            padding: 16px;
+            background: rgba(26, 27, 38, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 12px 16px;
+        }
+        
+        .input-container input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ececf1;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .input-container input::placeholder {
+            color: #8e8ea0;
+        }
+        
+        .send-button {
+            background: #10b981;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 12px;
+        }
+        
+        .hindi-text {
+            font-family: 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', sans-serif;
+        }
+        
+        .media-section {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .media-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .media-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .media-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .media-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .media-card-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+        
+        .media-card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .media-card-content {
+            padding: 16px;
+        }
+        
+        .media-card-category {
+            font-size: 11px;
+            color: #10b981;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .media-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .media-card-description {
+            font-size: 13px;
+            color: #8e8ea0;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .media-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #8e8ea0;
+        }
+        
+        .media-card-source {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .media-card-duration {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .scroll-indicator {
+            text-align: center;
+            padding: 12px;
+            color: #8e8ea0;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 📶 📶 🔋</span>
+        </div>
+        
+        <div class="header">
+            <div style="width: 40px;"></div>
+            <div class="header-content">
+                <h1>ChatGPT</h1>
+                <p>आपकी दुकान के लिए AI सहायक</p>
+            </div>
+            <div class="profile-avatar">👤</div>
+        </div>
+        
+        <div class="hero-section">
+            <div class="hero-prompt hindi-text">
+                मेरी दुकान का हिसाब-किताब करने में मदद करो
+            </div>
+            <div style="font-size: 12px; color: #8e8ea0; margin-top: 8px;">
+                Tap to start conversation
+            </div>
+        </div>
+        
+        <div class="quick-actions">
+            <div class="action-card">
+                <div class="action-icon">🧮</div>
+                <div class="action-title">GST Calculation</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📄</div>
+                <div class="action-title">Invoice Generator</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">🔢</div>
+                <div class="action-title">Number to Words</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">💰</div>
+                <div class="action-title">Profit Calculator</div>
+            </div>
+        </div>
+        
+        <div class="example-prompts">
+            <div class="section-title">Suggested Prompts</div>
+            
+            <div class="prompt-card">
+                <div class="prompt-text hindi-text">
+                    ₹5000 का 18% GST कितना होगा?
+                </div>
+            </div>
+            
+            <div class="prompt-card">
+                <div class="prompt-text hindi-text">
+                    Invoice बनाने में मदद करो
+                </div>
+            </div>
+            
+            <div class="prompt-card">
+                <div class="prompt-text hindi-text">
+                    ₹12500 को शब्दों में लिखो
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-highlights">
+            <div class="section-title">Features</div>
+            <div>
+                <span class="feature-badge">Hindi Interface</span>
+                <span class="feature-badge">Business Calculations</span>
+                <span class="feature-badge">GST Helper</span>
+            </div>
+        </div>
+        
+        <div class="media-section">
+            <div class="media-section-title">
+                <span>📺</span>
+                <span>Latest Updates & Resources</span>
+            </div>
+            <div class="media-cards">
+                <div class="media-card">
+                    <div class="media-card-image">
+                        📊
+                        <div class="media-card-badge">NEW</div>
+                    </div>
+                    <div class="media-card-content">
+                        <div class="media-card-category">Tax Updates</div>
+                        <div class="media-card-title hindi-text">2024 GST Rate Changes - क्या बदला?</div>
+                        <div class="media-card-description hindi-text">
+                            नए GST rates और tax regulations के बारे में जानें। छोटे व्यापारियों के लिए महत्वपूर्ण अपडेट।
+                        </div>
+                        <div class="media-card-footer">
+                            <div class="media-card-source">
+                                <span>📰</span>
+                                <span>Tax Department</span>
+                            </div>
+                            <div class="media-card-duration">5 min read</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="media-card">
+                    <div class="media-card-image">
+                        🎥
+                        <div class="media-card-badge">VIDEO</div>
+                    </div>
+                    <div class="media-card-content">
+                        <div class="media-card-category">Finance Tips</div>
+                        <div class="media-card-title hindi-text">GST Filing Made Easy - Complete Guide</div>
+                        <div class="media-card-description hindi-text">
+                            YouTube पर छोटे व्यापारियों के लिए GST filing की पूरी guide। Step-by-step tutorial।
+                        </div>
+                        <div class="media-card-footer">
+                            <div class="media-card-source">
+                                <span>▶️</span>
+                                <span>Finance Guru</span>
+                            </div>
+                            <div class="media-card-duration">12:30</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="media-card">
+                    <div class="media-card-image">
+                        💼
+                        <div class="media-card-badge">TRENDING</div>
+                    </div>
+                    <div class="media-card-content">
+                        <div class="media-card-category">Business News</div>
+                        <div class="media-card-title hindi-text">Digital Payment Incentives for Small Businesses</div>
+                        <div class="media-card-description hindi-text">
+                            सरकार की नई योजना: Digital payments पर cashback और incentives। कैसे लाभ उठाएं।
+                        </div>
+                        <div class="media-card-footer">
+                            <div class="media-card-source">
+                                <span>📰</span>
+                                <span>Business Today</span>
+                            </div>
+                            <div class="media-card-duration">3 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">Scroll for more →</div>
+        </div>
+        
+        <div class="chat-input-area">
+            <div class="input-container">
+                <input type="text" placeholder="Message ChatGPT..." class="hindi-text">
+                <button class="send-button">➤</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

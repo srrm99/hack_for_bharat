@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT - Day-7 Insights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #ececf1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: #1a1b26;
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+        }
+        
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            font-size: 13px;
+            color: #8e8ea0;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .insight-section {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .insight-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 24px;
+        }
+        
+        .insight-title {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .insight-content {
+            font-size: 15px;
+            color: #8e8ea0;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+        
+        .feature-suggestions {
+            padding: 20px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .feature-info {
+            flex: 1;
+        }
+        
+        .feature-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 12px;
+            color: #8e8ea0;
+        }
+        
+        .feature-arrow {
+            color: #8e8ea0;
+            font-size: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #8e8ea0;
+        }
+        
+        .hindi-text {
+            font-family: 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', sans-serif;
+        }
+        
+        .media-section {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .media-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .media-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .media-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .media-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .media-card-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+        
+        .media-card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .media-card-content {
+            padding: 16px;
+        }
+        
+        .media-card-category {
+            font-size: 11px;
+            color: #10b981;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .media-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        
+        .media-card-description {
+            font-size: 12px;
+            color: #8e8ea0;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .media-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #8e8ea0;
+        }
+        
+        .media-card-source {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .media-card-duration {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 📶 📶 🔋</span>
+        </div>
+        
+        <div class="header">
+            <div style="width: 40px;"></div>
+            <div class="header-content">
+                <h1>ChatGPT</h1>
+                <p>Week 1 Summary</p>
+            </div>
+            <div class="profile-avatar">👤</div>
+        </div>
+        
+        <div class="insight-section">
+            <div class="section-title">
+                <span>📊</span>
+                <span>Weekly Insights</span>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon">🎓</div>
+                    <div class="insight-title hindi-text">इस हफ्ते आपने क्या सीखा</div>
+                </div>
+                <div class="insight-content hindi-text">
+                    इस हफ्ते आपने ChatGPT के साथ काम करते हुए कई चीजें सीखीं:
+                    <ul style="margin-top: 12px; padding-left: 20px;">
+                        <li>Hindi interface का उपयोग</li>
+                        <li>Business calculations</li>
+                        <li>GST helpers</li>
+                        <li>Invoice generation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Days Active</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Prompts Used</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-suggestions">
+            <div class="section-title">
+                <span>✨</span>
+                <span>Feature Suggestions</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧮</div>
+                <div class="feature-info">
+                    <div class="feature-name">Advanced GST Calculator</div>
+                    <div class="feature-desc">Calculate complex GST scenarios</div>
+                </div>
+                <div class="feature-arrow">→</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-info">
+                    <div class="feature-name">Monthly Report Generator</div>
+                    <div class="feature-desc">Auto-generate monthly business reports</div>
+                </div>
+                <div class="feature-arrow">→</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <div class="feature-info">
+                    <div class="feature-name">Customer Communication Templates</div>
+                    <div class="feature-desc">Pre-written messages for customers</div>
+                </div>
+                <div class="feature-arrow">→</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <div class="feature-info">
+                    <div class="feature-name">Inventory Management Helper</div>
+                    <div class="feature-desc">Track and manage inventory with AI</div>
+                </div>
+                <div class="feature-arrow">→</div>
+            </div>
+        </div>
+        
+        <div class="media-section">
+            <div class="media-section-title">
+                <span>📺</span>
+                <span>Recommended for You</span>
+            </div>
+            <div class="media-cards">
+                <div class="media-card">
+                    <div class="media-card-image">
+                        📊
+                        <div class="media-card-badge">TRENDING</div>
+                    </div>
+                    <div class="media-card-content">
+                        <div class="media-card-category">Tax Updates</div>
+                        <div class="media-card-title hindi-text">Monthly GST Return Filing Guide</div>
+                        <div class="media-card-description hindi-text">
+                            इस महीने की GST return कैसे file करें - complete step-by-step guide।
+                        </div>
+                        <div class="media-card-footer">
+                            <div class="media-card-source">
+                                <span>📰</span>
+                                <span>GST Portal</span>
+                            </div>
+                            <div class="media-card-duration">8 min read</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="media-card">
+                    <div class="media-card-image">
+                        🎥
+                        <div class="media-card-badge">NEW</div>
+                    </div>
+                    <div class="media-card-content">
+                        <div class="media-card-category">Finance Tips</div>
+                        <div class="media-card-title hindi-text">Small Business Accounting Tips</div>
+                        <div class="media-card-description hindi-text">
+                            Expert advice on managing your shop's finances effectively।
+                        </div>
+                        <div class="media-card-footer">
+                            <div class="media-card-source">
+                                <span>▶️</span>
+                                <span>Business Expert</span>
+                            </div>
+                            <div class="media-card-duration">15:45</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="padding: 20px; text-align: center; color: #8e8ea0; font-size: 12px;">
+            <p>Keep exploring to unlock more features!</p>
+        </div>
+    </div>
+</body>
+</html>
+

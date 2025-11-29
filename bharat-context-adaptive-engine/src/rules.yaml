@@ -1,0 +1,491 @@
+# Inference Rules for Bharat Context-Adaptive Engine
+# Each rule defines conditions and scoring for inferring user need states
+
+rules:
+  # Morning Devotional User
+  - name: morning_devotional_user
+    description: User likely engaging in morning devotional/religious activities
+    conditions:
+      - signal: time_of_day
+        operator: in
+        value: ["early_morning", "morning"]
+        weight: 3.0
+      - signal: hour_of_day
+        operator: between
+        value: [5, 9]
+        weight: 2.0
+      - signal: system_language
+        operator: in
+        value: ["hi", "mr", "gu", "te", "ta"]
+        weight: 1.5
+      - signal: first_action
+        operator: equals
+        value: "voice"
+        weight: 2.0
+      - signal: festival_day
+        operator: not_equals
+        value: "none"
+        weight: 1.0
+    output:
+      user_need_state: "Morning Devotional User"
+      ui_mode: "voice-first"
+      language_preference: "hindi"
+      confidence_threshold: 4.0
+      recommended_actions:
+        - "Show devotional prompt suggestions (Bhajans, prayers, religious quotes)"
+        - "Enable voice input by default"
+        - "Display regional language interface"
+        - "Suggest morning routine prompts"
+        - "Show festival-specific content if applicable"
+
+  # Evening Ledger / Khatabook Mode User
+  - name: evening_ledger_user
+    description: Shop owner or small business person doing evening accounting
+    conditions:
+      - signal: time_of_day
+        operator: in
+        value: ["evening", "night"]
+        weight: 2.0
+      - signal: hour_of_day
+        operator: between
+        value: [18, 22]
+        weight: 2.0
+      - signal: day_of_week
+        operator: in
+        value: ["monday", "tuesday", "wednesday", "thursday", "friday"]
+        weight: 1.5
+      - signal: payment_apps_installed
+        operator: in
+        value: ["paytm", "phonepe", "gpay", "multiple"]
+        weight: 2.5
+      - signal: city_tier
+        operator: in
+        value: ["tier2", "tier3", "tier4", "rural"]
+        weight: 1.5
+      - signal: text_input_length
+        operator: equals
+        value: "medium"
+        weight: 1.0
+    output:
+      user_need_state: "Evening Ledger / Khatabook Mode User"
+      ui_mode: "standard"
+      language_preference: "hindi"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Show accounting and calculation prompts"
+        - "Suggest ledger entry templates"
+        - "Display number-to-words converter"
+        - "Show GST calculation helpers"
+        - "Suggest invoice generation prompts"
+
+  # Student Exam Time User
+  - name: student_exam_user
+    description: Student preparing for exams or studying
+    conditions:
+      - signal: time_of_day
+        operator: in
+        value: ["morning", "afternoon", "evening"]
+        weight: 1.0
+      - signal: hour_of_day
+        operator: between
+        value: [6, 22]
+        weight: 1.0
+      - signal: device_class
+        operator: in
+        value: ["low_end", "mid_range"]
+        weight: 1.5
+      - signal: session_duration
+        operator: in
+        value: ["medium", "long"]
+        weight: 2.0
+      - signal: text_input_length
+        operator: in
+        value: ["medium", "long"]
+        weight: 2.0
+      - signal: return_user
+        operator: equals
+        value: "yes"
+        weight: 1.5
+      - signal: age_group_estimate
+        operator: in
+        value: ["teen", "young_adult"]
+        weight: 2.0
+    output:
+      user_need_state: "Student Exam Time User"
+      ui_mode: "standard"
+      language_preference: "mixed"
+      confidence_threshold: 6.0
+      recommended_actions:
+        - "Show study and exam preparation prompts"
+        - "Suggest subject-specific help (Math, Science, English)"
+        - "Display quick Q&A format suggestions"
+        - "Show essay writing helpers"
+        - "Suggest revision and summary prompts"
+
+  # Low-network Slow Device User
+  - name: low_network_slow_device_user
+    description: User with poor network and/or low-end device
+    conditions:
+      - signal: network_type
+        operator: in
+        value: ["2g", "3g"]
+        weight: 3.0
+      - signal: network_speed
+        operator: equals
+        value: "slow"
+        weight: 3.0
+      - signal: device_class
+        operator: equals
+        value: "low_end"
+        weight: 2.5
+      - signal: ram_size
+        operator: in
+        value: ["1GB", "2GB"]
+        weight: 2.0
+      - signal: connection_stability
+        operator: in
+        value: ["unstable", "intermittent"]
+        weight: 2.5
+      - signal: data_saver_mode
+        operator: equals
+        value: "enabled"
+        weight: 1.5
+      - signal: app_launch_time
+        operator: in
+        value: ["medium", "slow"]
+        weight: 1.5
+    output:
+      user_need_state: "Low-network Slow Device User"
+      ui_mode: "lite"
+      language_preference: "system_default"
+      confidence_threshold: 6.0
+      recommended_actions:
+        - "Enable lite mode with minimal UI"
+        - "Reduce image/asset loading"
+        - "Suggest offline-capable features"
+        - "Show text-only interface options"
+        - "Enable aggressive caching"
+
+  # Hindi-first User
+  - name: hindi_first_user
+    description: User prefers Hindi language interface
+    conditions:
+      - signal: system_language
+        operator: equals
+        value: "hi"
+        weight: 4.0
+      - signal: keyboard_language
+        operator: contains
+        value: "hindi"
+        weight: 3.0
+      - signal: state
+        operator: in
+        value: ["UP", "MP", "BH", "RJ", "HR", "DL"]
+        weight: 2.0
+      - signal: language_region
+        operator: equals
+        value: "hindi"
+        weight: 2.0
+      - signal: text_input_length
+        operator: not_equals
+        value: "none"
+        weight: 1.0
+    output:
+      user_need_state: "Hindi-first User"
+      ui_mode: "standard"
+      language_preference: "hindi"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Display Hindi interface by default"
+        - "Show Hindi prompt examples"
+        - "Enable Hindi voice input"
+        - "Suggest Hindi content prompts"
+        - "Show Devanagari keyboard hints"
+
+  # Shop Owner / Kirana Workflow User
+  - name: shop_owner_kirana_user
+    description: Small shop or kirana store owner
+    conditions:
+      - signal: payment_apps_installed
+        operator: in
+        value: ["paytm", "phonepe", "gpay", "multiple"]
+        weight: 2.5
+      - signal: ecommerce_apps
+        operator: in
+        value: ["flipkart", "amazon", "meesho", "multiple"]
+        weight: 1.5
+      - signal: business_hours_activity
+        operator: equals
+        value: "yes"
+        weight: 2.0
+      - signal: city_tier
+        operator: in
+        value: ["tier2", "tier3", "tier4"]
+        weight: 1.5
+      - signal: time_of_day
+        operator: in
+        value: ["morning", "afternoon", "evening"]
+        weight: 1.0
+      - signal: session_frequency
+        operator: equals
+        value: "multiple"
+        weight: 1.5
+    output:
+      user_need_state: "Shop Owner / Kirana Workflow User"
+      ui_mode: "standard"
+      language_preference: "hindi"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Show business calculation prompts"
+        - "Suggest inventory management helpers"
+        - "Display price comparison tools"
+        - "Show customer communication templates"
+        - "Suggest GST and tax calculation prompts"
+
+  # Festival-Day User
+  - name: festival_day_user
+    description: User on a festival day
+    conditions:
+      - signal: festival_day
+        operator: not_equals
+        value: "none"
+        weight: 5.0
+      - signal: regional_holiday
+        operator: equals
+        value: "yes"
+        weight: 2.0
+      - signal: system_language
+        operator: in
+        value: ["hi", "mr", "gu", "te", "ta", "bn"]
+        weight: 1.5
+    output:
+      user_need_state: "Festival-Day User"
+      ui_mode: "standard"
+      language_preference: "regional"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Show festival-specific greetings and messages"
+        - "Suggest festival-related prompts (recipes, wishes, quotes)"
+        - "Display regional language interface"
+        - "Show sharing templates for festival messages"
+        - "Suggest creative content for festival posts"
+
+  # Voice-first User
+  - name: voice_first_user
+    description: User prefers voice input over typing
+    conditions:
+      - signal: first_action
+        operator: equals
+        value: "voice"
+        weight: 4.0
+      - signal: voice_button_tapped
+        operator: equals
+        value: "yes"
+        weight: 3.5
+      - signal: microphone_permission
+        operator: equals
+        value: "granted"
+        weight: 2.0
+      - signal: text_input_length
+        operator: equals
+        value: "none"
+        weight: 2.0
+      - signal: keyboard_opened
+        operator: equals
+        value: "no"
+        weight: 1.5
+      - signal: system_language
+        operator: in
+        value: ["hi", "mr", "gu", "te", "ta", "bn"]
+        weight: 1.0
+    output:
+      user_need_state: "Voice-first User"
+      ui_mode: "voice-first"
+      language_preference: "system_default"
+      confidence_threshold: 6.0
+      recommended_actions:
+        - "Enable voice input by default"
+        - "Show voice command examples"
+        - "Display large voice button"
+        - "Suggest voice-friendly prompts"
+        - "Show voice-to-text conversion hints"
+
+  # AI Beginner / First-time Prompt Explorer
+  - name: ai_beginner_user
+    description: First-time user exploring AI capabilities
+    conditions:
+      - signal: time_since_install
+        operator: equals
+        value: "immediate"
+        weight: 2.0
+      - signal: first_prompt_attempted
+        operator: equals
+        value: "no"
+        weight: 3.0
+      - signal: example_prompts_viewed
+        operator: equals
+        value: "yes"
+        weight: 2.5
+      - signal: tutorial_started
+        operator: equals
+        value: "yes"
+        weight: 2.0
+      - signal: help_faq_opened
+        operator: equals
+        value: "yes"
+        weight: 1.5
+      - signal: time_to_first_interaction
+        operator: in
+        value: ["delayed", "quick"]
+        weight: 1.5
+      - signal: text_input_length
+        operator: equals
+        value: "none"
+        weight: 2.0
+    output:
+      user_need_state: "AI Beginner / First-time Prompt Explorer"
+      ui_mode: "standard"
+      language_preference: "system_default"
+      confidence_threshold: 6.0
+      recommended_actions:
+        - "Show interactive tutorial"
+        - "Display example prompts prominently"
+        - "Suggest beginner-friendly prompts"
+        - "Show 'What can I ask?' examples"
+        - "Enable guided onboarding"
+
+  # Regional Language User (Non-Hindi)
+  - name: regional_language_user
+    description: User from non-Hindi speaking region
+    conditions:
+      - signal: system_language
+        operator: in
+        value: ["ta", "te", "mr", "gu", "bn", "kn", "ml", "or", "pa"]
+        weight: 4.0
+      - signal: keyboard_language
+        operator: contains
+        value: "regional"
+        weight: 2.5
+      - signal: state
+        operator: in
+        value: ["TN", "AP", "TS", "KA", "KL", "WB", "GJ", "MH", "OR", "PB"]
+        weight: 2.0
+      - signal: language_region
+        operator: not_equals
+        value: "hindi"
+        weight: 2.0
+    output:
+      user_need_state: "Regional Language User"
+      ui_mode: "standard"
+      language_preference: "regional"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Display interface in regional language"
+        - "Show regional language prompt examples"
+        - "Enable regional language voice input"
+        - "Suggest culturally relevant prompts"
+        - "Show regional keyboard hints"
+
+  # Quick Task User
+  - name: quick_task_user
+    description: User wants quick, single-purpose tasks
+    conditions:
+      - signal: session_duration
+        operator: equals
+        value: "short"
+        weight: 3.0
+      - signal: time_to_first_interaction
+        operator: equals
+        value: "immediate"
+        weight: 2.0
+      - signal: text_input_length
+        operator: equals
+        value: "short"
+        weight: 2.5
+      - signal: session_count
+        operator: equals
+        value: 1
+        weight: 1.5
+      - signal: scroll_behavior
+        operator: equals
+        value: "minimal"
+        weight: 1.5
+    output:
+      user_need_state: "Quick Task User"
+      ui_mode: "lite"
+      language_preference: "system_default"
+      confidence_threshold: 5.0
+      recommended_actions:
+        - "Show quick action buttons"
+        - "Display one-tap common tasks"
+        - "Suggest short, direct prompts"
+        - "Minimize UI clutter"
+        - "Show search-first interface"
+
+  # Power User / Tech-Savvy
+  - name: power_user
+    description: Tech-savvy user with high-end device and good network
+    conditions:
+      - signal: device_class
+        operator: equals
+        value: "high_end"
+        weight: 2.5
+      - signal: network_type
+        operator: in
+        value: ["wifi", "4g"]
+        weight: 2.0
+      - signal: network_speed
+        operator: equals
+        value: "fast"
+        weight: 2.0
+      - signal: ram_size
+        operator: in
+        value: ["4GB+", "6GB+", "8GB+"]
+        weight: 2.0
+      - signal: session_duration
+        operator: equals
+        value: "long"
+        weight: 1.5
+      - signal: text_input_length
+        operator: equals
+        value: "long"
+        weight: 1.5
+    output:
+      user_need_state: "Power User / Tech-Savvy"
+      ui_mode: "standard"
+      language_preference: "english"
+      confidence_threshold: 6.0
+      recommended_actions:
+        - "Show advanced features"
+        - "Enable rich formatting options"
+        - "Suggest complex, multi-step prompts"
+        - "Display developer-friendly tools"
+        - "Show API and integration options"
+
+# Default fallback rule
+default_rule:
+  user_need_state: "First-time AI Explorer"
+  ui_mode: "standard"
+  language_preference: "system_default"
+  confidence: 0.0
+  recommended_actions:
+    - "Show welcome message"
+    - "Display example prompts"
+    - "Enable basic tutorial"
+    - "Show language selection"
+    - "Suggest getting started prompts"
+
+# Scoring configuration
+scoring:
+  method: "weighted_sum"  # Options: weighted_sum, max_score, average
+  min_confidence: 3.0
+  max_confidence: 10.0
+  tie_breaker: "highest_single_score"  # Options: highest_single_score, most_conditions_met
+
+# Output configuration
+output:
+  max_recommended_actions: 5
+  min_recommended_actions: 3
+  include_explanation: true
+  explanation_template: "Inferred based on {matched_conditions} signals: {top_signals}"
+

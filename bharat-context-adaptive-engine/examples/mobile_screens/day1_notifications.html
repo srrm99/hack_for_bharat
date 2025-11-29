@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT - Day-1 Notifications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #ececf1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: #1a1b26;
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            font-size: 13px;
+            color: #8e8ea0;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .notification-section {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #10b981;
+        }
+        
+        .notification-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .notification-title {
+            font-size: 16px;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .notification-time {
+            font-size: 12px;
+            color: #8e8ea0;
+        }
+        
+        .notification-body {
+            font-size: 14px;
+            color: #8e8ea0;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+        
+        .reminder-card {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: #3b82f6;
+        }
+        
+        .reminder-card .notification-icon {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .summary-card {
+            background: rgba(168, 85, 247, 0.1);
+            border-left-color: #a855f7;
+        }
+        
+        .summary-card .notification-icon {
+            background: rgba(168, 85, 247, 0.2);
+        }
+        
+        .hindi-text {
+            font-family: 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', sans-serif;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 10px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            color: #10b981;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 📶 📶 🔋</span>
+        </div>
+        
+        <div class="header">
+            <div style="width: 40px;"></div>
+            <div class="header-content">
+                <h1>ChatGPT</h1>
+                <p>Day-1 Engagement</p>
+            </div>
+            <div class="profile-avatar">👤</div>
+        </div>
+        
+        <div class="notification-section">
+            <div class="section-title">📬 Push Notifications</div>
+            
+            <div class="notification-card">
+                <div class="notification-header">
+                    <div class="notification-icon">💬</div>
+                    <div class="notification-title hindi-text">आज का हिसाब-किताब करें</div>
+                    <div class="notification-time">18:00</div>
+                </div>
+                <div class="notification-body hindi-text">
+                    ChatGPT से GST calculation और invoice बनाने में मदद लें
+                </div>
+                <div class="action-buttons">
+                    <div class="action-button">Open App</div>
+                    <div class="action-button">Dismiss</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notification-section">
+            <div class="section-title">⏰ Reminders</div>
+            
+            <div class="notification-card reminder-card">
+                <div class="notification-header">
+                    <div class="notification-icon">⏰</div>
+                    <div class="notification-title hindi-text">Daily Accounting Reminder</div>
+                    <div class="notification-time">19:00</div>
+                </div>
+                <div class="notification-body hindi-text">
+                    शाम को हिसाब-किताब करने का समय
+                </div>
+                <div class="action-buttons">
+                    <div class="action-button">Set Reminder</div>
+                    <div class="action-button">Skip</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notification-section">
+            <div class="section-title">📊 Daily Summaries</div>
+            
+            <div class="notification-card summary-card">
+                <div class="notification-header">
+                    <div class="notification-icon">💡</div>
+                    <div class="notification-title hindi-text">आज का Business Tip</div>
+                    <div class="notification-time">20:00</div>
+                </div>
+                <div class="notification-body hindi-text">
+                    GST filing के लिए ChatGPT से मदद लें
+                </div>
+                <div class="action-buttons">
+                    <div class="action-button">Learn More</div>
+                    <div class="action-button">View Tips</div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="padding: 20px; text-align: center; color: #8e8ea0; font-size: 12px;">
+            <p>These notifications help you stay engaged with ChatGPT</p>
+            <p style="margin-top: 8px;">Personalized for your business needs</p>
+        </div>
+    </div>
+</body>
+</html>
+

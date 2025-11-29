@@ -1,0 +1,125 @@
+﻿{
+    "success":  true,
+    "inference":  {
+                      "user_need_state":  "Hindi-first User",
+                      "confidence":  10.0,
+                      "ui_mode":  "standard",
+                      "language_preference":  "hindi"
+                  },
+    "recommendations":  {
+                            "day_0":  {
+                                          "outcome":  "Day-0 Home Page Personalization",
+                                          "content":  {
+                                                          "hero_section":  {
+                                                                               "prompt":  "How can I help you?",
+                                                                               "language":  "hindi",
+                                                                               "ui_mode":  "standard"
+                                                                           },
+                                                          "quick_actions":  [
+                                                                                "Display Hindi interface by default",
+                                                                                "Show Hindi prompt examples",
+                                                                                "Enable Hindi voice input",
+                                                                                "Suggest Hindi content prompts"
+                                                                            ],
+                                                          "example_prompts":  [
+                                                                                  "Display Hindi interface by default",
+                                                                                  "Show Hindi prompt examples",
+                                                                                  "Enable Hindi voice input"
+                                                                              ],
+                                                          "feature_highlights":  [
+
+                                                                                 ],
+                                                          "personalization_level":  "high"
+                                                      },
+                                          "delivery_medium":  "in_app_home_page",
+                                          "timing":  {
+                                                         "when":  "immediate",
+                                                         "trigger":  "app_launch",
+                                                         "priority":  "high"
+                                                     },
+                                          "expected_outcome":  "User sees personalized Hindi-first User interface on first launch",
+                                          "confidence":  10.0
+                                      },
+                            "day_1":  {
+                                          "outcome":  "Day-1 Engagement",
+                                          "content":  {
+                                                          "push_notifications":  [
+
+                                                                                 ],
+                                                          "reminders":  [
+
+                                                                        ],
+                                                          "daily_summaries":  [
+
+                                                                              ]
+                                                      },
+                                          "delivery_medium":  [
+                                                                  "push_notification",
+                                                                  "in_app_notification",
+                                                                  "daily_digest"
+                                                              ],
+                                          "timing":  {
+                                                         "when":  "day_1",
+                                                         "schedule":  {
+                                                                          "push_notifications":  [
+                                                                                                     {
+                                                                                                         "time":  "18:00",
+                                                                                                         "timezone":  "IST"
+                                                                                                     }
+                                                                                                 ],
+                                                                          "reminders":  [
+                                                                                            {
+                                                                                                "time":  "19:00",
+                                                                                                "timezone":  "IST"
+                                                                                            }
+                                                                                        ],
+                                                                          "daily_summaries":  [
+                                                                                                  {
+                                                                                                      "time":  "20:00",
+                                                                                                      "timezone":  "IST"
+                                                                                                  }
+                                                                                              ]
+                                                                      }
+                                                     },
+                                          "expected_outcome":  "User re-engages with app through notifications and reminders",
+                                          "confidence":  10.0
+                                      },
+                            "day_7":  {
+                                          "outcome":  "Day-7 Retention \u0026 Growth",
+                                          "content":  {
+                                                          "weekly_insights":  [
+
+                                                                              ],
+                                                          "feature_suggestions":  [
+                                                                                      "Display Hindi interface by default",
+                                                                                      "Show Hindi prompt examples",
+                                                                                      "Enable Hindi voice input",
+                                                                                      "Suggest Hindi content prompts",
+                                                                                      "Show Devanagari keyboard hints"
+                                                                                  ],
+                                                          "advanced_features":  [
+
+                                                                                ]
+                                                      },
+                                          "delivery_medium":  [
+                                                                  "in_app_insights",
+                                                                  "email_digest",
+                                                                  "push_notification"
+                                                              ],
+                                          "timing":  {
+                                                         "when":  "day_7",
+                                                         "schedule":  {
+                                                                          "weekly_insights":  [
+                                                                                                  {
+                                                                                                      "time":  "10:00",
+                                                                                                      "day":  "monday",
+                                                                                                      "timezone":  "IST"
+                                                                                                  }
+                                                                                              ]
+                                                                      }
+                                                     },
+                                          "expected_outcome":  "User discovers advanced features and continues engagement",
+                                          "confidence":  10.0
+                                      }
+                        }
+}
